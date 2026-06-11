@@ -1,60 +1,234 @@
+/* ========================================
+   METRICFLOW CRM
+   SIDEBAR PREMIUM V1
+======================================== */
+
 #metricflow-panel {
 
     position: fixed !important;
 
-    top: 20px !important;
+    top: 12px !important;
 
-    right: 20px !important;
+    right: 12px !important;
 
     width: 380px !important;
 
-    height: 90vh !important;
+    height: calc(100vh - 24px) !important;
 
     background: #ffffff !important;
 
-    border-left: 4px solid #25D366 !important;
+    border-radius: 18px !important;
 
-    box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+    padding: 24px !important;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.08) !important;
 
     z-index: 999999999 !important;
 
-    padding: 20px !important;
-
     overflow-y: auto !important;
 
-    font-family: Arial, sans-serif !important;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif !important;
+
+    border: 1px solid #e5e7eb !important;
 }
 
+/* ========================================
+   TÍTULO
+======================================== */
+
+#metricflow-panel h2 {
+
+    margin: 0 0 24px 0;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    text-align: center;
+
+    letter-spacing: -0.5px;
+}
+
+/* ========================================
+   LABELS
+======================================== */
+
+#metricflow-panel label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    margin-top: 14px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+/* ========================================
+   INPUTS
+======================================== */
+
+#metricflow-panel input,
 #metricflow-panel select,
 #metricflow-panel textarea {
 
     width: 100%;
 
-    margin-bottom: 10px;
+    padding: 12px 14px;
 
-    padding: 8px;
+    border: 1px solid #d1d5db;
 
-    border: 1px solid #ccc;
+    border-radius: 10px;
 
-    border-radius: 6px;
+    background: #ffffff;
+
+    font-size: 14px;
+
+    color: #111827;
+
+    transition: all 0.2s ease;
 
     box-sizing: border-box;
+
+    margin-bottom: 12px;
 }
+
+/* ========================================
+   FOCUS
+======================================== */
+
+#metricflow-panel input:focus,
+#metricflow-panel select:focus,
+#metricflow-panel textarea:focus {
+
+    outline: none;
+
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, 0.15);
+}
+
+/* ========================================
+   READONLY
+======================================== */
+
+#mf-nome {
+
+    background: #f9fafb !important;
+
+    font-weight: 600;
+}
+
+/* ========================================
+   TEXTAREA
+======================================== */
 
 #metricflow-panel textarea {
 
-    min-height: 100px;
+    min-height: 120px;
 
     resize: vertical;
 }
 
+/* ========================================
+   BOTÃO
+======================================== */
+
+#mf-salvar {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #22c55e,
+        #16a34a
+    );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+#mf-salvar:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(34, 197, 94, 0.25);
+}
+
+#mf-salvar:active {
+
+    transform: translateY(0);
+}
+
+/* ========================================
+   STATUS
+======================================== */
+
 #mf-status {
 
-    margin-top: 10px;
+    text-align: center;
 
-    color: green;
+    margin-top: 14px;
 
     font-size: 13px;
 
-    font-weight: bold;
+    font-weight: 600;
+
+    color: #16a34a;
+}
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+#metricflow-panel::-webkit-scrollbar {
+
+    width: 8px;
+}
+
+#metricflow-panel::-webkit-scrollbar-track {
+
+    background: #f3f4f6;
+}
+
+#metricflow-panel::-webkit-scrollbar-thumb {
+
+    background: #d1d5db;
+
+    border-radius: 10px;
+}
+
+#metricflow-panel::-webkit-scrollbar-thumb:hover {
+
+    background: #9ca3af;
 }

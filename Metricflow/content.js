@@ -78,6 +78,7 @@ function criarPainel() {
     document
         .getElementById("mf-salvar")
         .addEventListener("click", salvarContato);
+        registrarEventosFormulario();
 }
 
 // ========================================
@@ -136,34 +137,54 @@ function capturarNomeContato() {
  */
 function carregarContato(nome) {
 
-    chrome.storage.local.get([nome], (resultado) => {
+    try {
 
-        const dados = resultado[nome];
+        chrome.storage.local.get([nome], (resultado) => {
 
-        if (!dados) {
+            if (chrome.runtime.lastError) {
 
-            limparFormulario();
+                console.error(
+                    "Erro ao carregar contato:",
+                    chrome.runtime.lastError
+                );
 
-            return;
-        }
+                return;
+            }
 
-        document.getElementById("mf-telefone").value =
-            dados.telefone || "";
+            const dados = resultado[nome];
 
-        document.getElementById("mf-tag").value =
-            dados.tag || "Lead";
+            if (!dados) {
 
-        document.getElementById("mf-etapa").value =
-            dados.etapa || "Novo Lead";
+                limparFormulario();
 
-        document.getElementById("mf-observacao").value =
-            dados.observacao || "";
+                return;
+            }
 
-        console.log(
-            "Contato carregado:",
-            nome
+            document.getElementById("mf-telefone").value =
+                dados.telefone || "";
+
+            document.getElementById("mf-tag").value =
+                dados.tag || "Lead";
+
+            document.getElementById("mf-etapa").value =
+                dados.etapa || "Novo Lead";
+
+            document.getElementById("mf-observacao").value =
+                dados.observacao || "";
+
+            console.log(
+                "Contato carregado:",
+                nome
+            );
+        });
+
+    } catch (erro) {
+
+        console.error(
+            "Erro geral ao carregar contato:",
+            erro
         );
-    });
+    }
 }
 
 /**
@@ -247,6 +268,50 @@ function salvarContato() {
 
         console.log(dados);
     });
+}
+
+/**
+ * Salva automaticamente quando
+ * o usuário altera algum campo.
+ */
+function salvarContatoAutomaticamente() {
+
+    salvarContato();
+}
+
+/**
+ * Registra eventos dos campos
+ * para salvamento automático.
+ */
+function registrarEventosFormulario() {
+
+    document
+        .getElementById("mf-telefone")
+        .addEventListener(
+            "input",
+            salvarContatoAutomaticamente
+        );
+
+    document
+        .getElementById("mf-tag")
+        .addEventListener(
+            "change",
+            salvarContatoAutomaticamente
+        );
+
+    document
+        .getElementById("mf-etapa")
+        .addEventListener(
+            "change",
+            salvarContatoAutomaticamente
+        );
+
+    document
+        .getElementById("mf-observacao")
+        .addEventListener(
+            "input",
+            salvarContatoAutomaticamente
+        );
 }
 
 // ========================================
