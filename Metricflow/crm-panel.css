@@ -232,3 +232,43 @@
 
     background: #9ca3af;
 }
+
+/* ========================================
+   LISTA DE LEADS
+======================================== */
+
+#mf-leads-lista {
+
+    margin-top: 10px;
+}
+
+.mf-lead-item {
+
+    padding: 10px;
+
+    margin-bottom: 6px;
+
+    border-radius: 8px;
+
+    background: #f3f4f6;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.mf-lead-item:hover {
+
+    background: #e5e7eb;
+}
+
+#mf-total-leads {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #6b7280;
+}
