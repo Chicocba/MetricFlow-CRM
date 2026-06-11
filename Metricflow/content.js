@@ -1,16 +1,31 @@
 // ========================================
 // METRICFLOW CRM
+// VERSÃO 0.2
 // ========================================
 
-let contatoAtual = null;
+console.log("MetricFlow iniciado");
 
 // ========================================
-// CRIAR PAINEL
+// VARIÁVEIS GLOBAIS
 // ========================================
 
+let ultimoNome = "";
+
+// ========================================
+// CRIAÇÃO DO PAINEL CRM
+// ========================================
+
+/**
+ * Cria o painel principal do CRM
+ * dentro do WhatsApp Web.
+ *
+ * Executa apenas uma vez.
+ */
 function criarPainel() {
 
-    if (document.getElementById("metricflow-panel")) return;
+    if (document.getElementById("metricflow-panel")) {
+        return;
+    }
 
     const painel = document.createElement("div");
 
@@ -25,11 +40,32 @@ function criarPainel() {
         <label>Telefone</label>
         <input id="mf-telefone" type="text">
 
-        <label>Observações</label>
-        <textarea id="mf-nota" rows="5"></textarea>
+        <label>Tag</label>
+        <select id="mf-tag">
+            <option>Lead</option>
+            <option>Cliente</option>
+            <option>Parceiro</option>
+            <option>Fornecedor</option>
+        </select>
+
+        <label>Etapa</label>
+        <select id="mf-etapa">
+            <option>Novo Lead</option>
+            <option>Contato Feito</option>
+            <option>Qualificado</option>
+            <option>Proposta</option>
+            <option>Negociação</option>
+            <option>Fechado</option>
+        </select>
+
+        <label>Observação</label>
+        <textarea
+            id="mf-observacao"
+            rows="5"
+        ></textarea>
 
         <button id="mf-salvar">
-            Salvar Contato
+            Salvar
         </button>
 
         <div id="mf-status"></div>
@@ -37,135 +73,202 @@ function criarPainel() {
 
     document.body.appendChild(painel);
 
+    // Evento do botão Salvar
+
     document
         .getElementById("mf-salvar")
         .addEventListener("click", salvarContato);
 }
 
 // ========================================
-// OBTER NOME DO CONTATO
+// CAPTURA DE DADOS DO WHATSAPP
 // ========================================
 
-function obterNomeContato() {
+/**
+ * Captura o nome do contato
+ * atualmente aberto na conversa.
+ *
+ * Atualiza o campo Nome do CRM.
+ */
+function capturarNomeContato() {
 
-    const elemento = document.querySelector(
-        'header span[title]'
-    );
+    const spans = document.querySelectorAll("span[title]");
 
-    if (!elemento) return null;
+    for (const span of spans) {
 
-    return elemento.getAttribute("title");
+        const nome = span.getAttribute("title");
+
+        if (
+            nome &&
+            nome.length > 2 &&
+            nome !== ultimoNome
+        ) {
+
+            ultimoNome = nome;
+
+            const campoNome =
+                document.getElementById("mf-nome");
+
+            if (campoNome) {
+
+                campoNome.value = nome;
+                carregarContato(nome);
+
+            }
+
+            console.log(
+                "Contato encontrado:",
+                nome
+            );
+
+            break;
+        }
+    }
 }
 
 // ========================================
-// CARREGAR DADOS
+// CARREGAMENTO DE DADOS
 // ========================================
 
+/**
+ * Carrega os dados do contato
+ * salvos anteriormente.
+ */
 function carregarContato(nome) {
 
     chrome.storage.local.get([nome], (resultado) => {
 
         const dados = resultado[nome];
 
-        document.getElementById("mf-nome").value = nome;
+        if (!dados) {
+
+            limparFormulario();
+
+            return;
+        }
 
         document.getElementById("mf-telefone").value =
-            dados?.telefone || "";
+            dados.telefone || "";
 
-        document.getElementById("mf-nota").value =
-            dados?.nota || "";
+        document.getElementById("mf-tag").value =
+            dados.tag || "Lead";
+
+        document.getElementById("mf-etapa").value =
+            dados.etapa || "Novo Lead";
+
+        document.getElementById("mf-observacao").value =
+            dados.observacao || "";
+
+        console.log(
+            "Contato carregado:",
+            nome
+        );
     });
 }
 
+/**
+ * Limpa os campos do formulário.
+ */
+function limparFormulario() {
+
+    document.getElementById("mf-telefone").value = "";
+
+    document.getElementById("mf-tag").value = "Lead";
+
+    document.getElementById("mf-etapa").value =
+        "Novo Lead";
+
+    document.getElementById("mf-observacao").value = "";
+}
+
 // ========================================
-// SALVAR CONTATO
+// STORAGE LOCAL
 // ========================================
 
+/**
+ * Salva os dados do contato
+ * no chrome.storage.local.
+ */
 function salvarContato() {
 
     const nome =
         document.getElementById("mf-nome").value;
 
-    if (!nome) return;
+    if (!nome) {
 
-    const telefone =
-        document.getElementById("mf-telefone").value;
+        alert("Nenhum contato selecionado");
 
-    const nota =
-        document.getElementById("mf-nota").value;
+        return;
+    }
 
     const dados = {
-        [nome]: {
-            telefone,
-            nota,
-            atualizadoEm: new Date().toISOString()
-        }
+
+        telefone:
+            document.getElementById("mf-telefone").value,
+
+        tag:
+            document.getElementById("mf-tag").value,
+
+        etapa:
+            document.getElementById("mf-etapa").value,
+
+        observacao:
+            document.getElementById("mf-observacao").value,
+
+        atualizadoEm:
+            new Date().toISOString()
     };
 
-    chrome.storage.local.set(dados, () => {
+    chrome.storage.local.set({
+
+        [nome]: dados
+
+    }, () => {
 
         const status =
             document.getElementById("mf-status");
 
-        status.innerText = "✅ Salvo";
+        if (status) {
 
-        setTimeout(() => {
-            status.innerText = "";
-        }, 2000);
+            status.innerText =
+                "✅ Salvo com sucesso";
+
+            setTimeout(() => {
+
+                status.innerText = "";
+
+            }, 3000);
+        }
+
+        console.log(
+            "Contato salvo:",
+            nome
+        );
+
+        console.log(dados);
     });
 }
 
 // ========================================
-// ATUALIZAR CONTATO ATUAL
+// INICIALIZAÇÃO DO CRM
 // ========================================
 
-function atualizarContatoAtual() {
+/**
+ * Inicializa o MetricFlow CRM.
+ */
+function iniciarCRM() {
 
-    const nome = obterNomeContato();
+    criarPainel();
 
-    if (!nome) return;
+    setInterval(() => {
 
-    if (nome === contatoAtual) return;
+        capturarNomeContato();
 
-    contatoAtual = nome;
-
-    carregarContato(nome);
-
-    console.log(
-        "Contato detectado:",
-        contatoAtual
-    );
+    }, 2000);
 }
 
 // ========================================
-// AGUARDAR WHATSAPP
+// EXECUÇÃO
 // ========================================
 
-function aguardarWhatsApp() {
-
-    const intervalo = setInterval(() => {
-
-        const header = document.querySelector("header");
-
-        if (!header) return;
-
-        clearInterval(intervalo);
-
-        criarPainel();
-
-        atualizarContatoAtual();
-
-        setInterval(() => {
-            atualizarContatoAtual();
-        }, 1000);
-
-        console.log("MetricFlow iniciado");
-
-    }, 1000);
-}
-
-// ========================================
-// INICIAR
-// ========================================
-
-aguardarWhatsApp();
+iniciarCRM();
