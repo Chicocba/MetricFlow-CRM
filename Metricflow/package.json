@@ -1,0 +1,11 @@
+{
+  "name": "metricflow-crm-extension",
+  "version": "1.0.0",
+  "description": "Chrome Extension CRM for WhatsApp Web",
+  "scripts": {
+    "dev": "echo 'no build needed'",
+    "build": "echo 'no build step yet'"
+  },
+  "author": "MetricFlow",
+  "license": "MIT"
+}
