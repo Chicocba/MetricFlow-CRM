@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "MetricFlow CRM",
+  "version": "1.0",
+
+  "permissions": [
+    "storage"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "crm-panel.css"
+      ]
+    }
+  ]
+}
