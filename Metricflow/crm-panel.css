@@ -1,33 +1,31 @@
+
 /* ========================================
-   METRICFLOW CRM
-   SIDEBAR PREMIUM V1
+   METRICFLOW CRM - UI STABLE SAAS
 ======================================== */
 
 #metricflow-panel {
 
     position: fixed !important;
-
     top: 12px !important;
-
     right: 12px !important;
 
     width: 380px !important;
-
     height: calc(100vh - 24px) !important;
 
     background: #ffffff !important;
 
-    border-radius: 18px !important;
+    border-radius: 14px !important;
 
-    padding: 24px !important;
+    padding: 16px !important;
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.12),
-        0 4px 12px rgba(0, 0, 0, 0.08) !important;
+        0 10px 25px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.05) !important;
 
     z-index: 999999999 !important;
 
     overflow-y: auto !important;
+    overflow-x: hidden !important;
 
     font-family:
         Inter,
@@ -37,25 +35,25 @@
         sans-serif !important;
 
     border: 1px solid #e5e7eb !important;
+
+    color: #111827;
 }
 
 /* ========================================
-   TÍTULO
+   TITLE
 ======================================== */
 
 #metricflow-panel h2 {
 
-    margin: 0 0 24px 0;
+    margin: 0 0 12px 0;
 
-    font-size: 24px;
+    font-size: 18px;
 
     font-weight: 700;
 
     color: #111827;
 
-    text-align: center;
-
-    letter-spacing: -0.5px;
+    letter-spacing: -0.2px;
 }
 
 /* ========================================
@@ -66,19 +64,17 @@
 
     display: block;
 
-    margin-bottom: 6px;
+    margin: 8px 0 4px;
 
-    margin-top: 14px;
-
-    font-size: 13px;
+    font-size: 11px;
 
     font-weight: 600;
 
-    color: #374151;
+    color: #6b7280;
 }
 
 /* ========================================
-   INPUTS
+   INPUTS CLEAN SAAS
 ======================================== */
 
 #metricflow-panel input,
@@ -87,50 +83,33 @@
 
     width: 100%;
 
-    padding: 12px 14px;
+    padding: 9px 10px;
 
-    border: 1px solid #d1d5db;
+    border-radius: 8px;
 
-    border-radius: 10px;
+    border: 1px solid #e5e7eb;
 
-    background: #ffffff;
+    background: #fff;
 
-    font-size: 14px;
+    font-size: 13px;
 
     color: #111827;
 
-    transition: all 0.2s ease;
+    outline: none;
+
+    transition: all 0.15s ease;
 
     box-sizing: border-box;
-
-    margin-bottom: 12px;
 }
 
-/* ========================================
-   FOCUS
-======================================== */
-
+/* FOCUS */
 #metricflow-panel input:focus,
 #metricflow-panel select:focus,
 #metricflow-panel textarea:focus {
 
-    outline: none;
-
     border-color: #22c55e;
 
-    box-shadow:
-        0 0 0 4px rgba(34, 197, 94, 0.15);
-}
-
-/* ========================================
-   READONLY
-======================================== */
-
-#mf-nome {
-
-    background: #f9fafb !important;
-
-    font-weight: 600;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
 }
 
 /* ========================================
@@ -139,55 +118,43 @@
 
 #metricflow-panel textarea {
 
-    min-height: 120px;
+    min-height: 80px;
 
     resize: vertical;
 }
 
 /* ========================================
-   BOTÃO
+   BUTTON
 ======================================== */
 
 #mf-salvar {
 
     width: 100%;
 
-    margin-top: 12px;
+    margin-top: 10px;
 
-    padding: 14px;
+    padding: 10px;
 
     border: none;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: linear-gradient(
-        135deg,
-        #22c55e,
-        #16a34a
-    );
+    background: #22c55e;
 
     color: white;
 
-    font-size: 15px;
+    font-size: 13px;
 
     font-weight: 700;
 
     cursor: pointer;
 
-    transition: all 0.25s ease;
+    transition: all 0.15s ease;
 }
 
 #mf-salvar:hover {
 
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 20px rgba(34, 197, 94, 0.25);
-}
-
-#mf-salvar:active {
-
-    transform: translateY(0);
+    background: #16a34a;
 }
 
 /* ========================================
@@ -198,9 +165,9 @@
 
     text-align: center;
 
-    margin-top: 14px;
+    margin-top: 8px;
 
-    font-size: 13px;
+    font-size: 11px;
 
     font-weight: 600;
 
@@ -208,33 +175,7 @@
 }
 
 /* ========================================
-   SCROLLBAR
-======================================== */
-
-#metricflow-panel::-webkit-scrollbar {
-
-    width: 8px;
-}
-
-#metricflow-panel::-webkit-scrollbar-track {
-
-    background: #f3f4f6;
-}
-
-#metricflow-panel::-webkit-scrollbar-thumb {
-
-    background: #d1d5db;
-
-    border-radius: 10px;
-}
-
-#metricflow-panel::-webkit-scrollbar-thumb:hover {
-
-    background: #9ca3af;
-}
-
-/* ========================================
-   LISTA DE LEADS
+   LEADS LIST
 ======================================== */
 
 #mf-leads-lista {
@@ -244,31 +185,100 @@
 
 .mf-lead-item {
 
-    padding: 10px;
+    padding: 8px;
 
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 
     border-radius: 8px;
 
-    background: #f3f4f6;
+    background: #f9fafb;
+
+    border: 1px solid #f3f4f6;
 
     cursor: pointer;
 
-    transition: all .2s ease;
+    font-size: 12px;
+
+    transition: all 0.15s ease;
 }
 
 .mf-lead-item:hover {
 
-    background: #e5e7eb;
+    background: #ecfdf5;
+
+    border-color: #bbf7d0;
 }
+
+/* ========================================
+   TOTAL LEADS
+======================================== */
 
 #mf-total-leads {
 
-    margin-top: 10px;
+    margin-top: 8px;
 
-    font-size: 13px;
-
-    font-weight: 600;
+    font-size: 11px;
 
     color: #6b7280;
+}
+
+/* ========================================
+   KANBAN FIX (CRÍTICO - SEM SCROLL HORIZONTAL)
+======================================== */
+
+#kanban {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+/* COLUNA */
+#kanban > div {
+
+    width: 100% !important;
+
+    background: #f9fafb;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 8px;
+
+    box-sizing: border-box;
+}
+
+/* TÍTULO COLUNA */
+#kanban strong {
+
+    font-size: 12px;
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #111827;
+}
+
+/* CARD */
+#kanban div div {
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    padding: 6px 8px;
+
+    border-radius: 8px;
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+
+    line-height: 1.3;
 }
